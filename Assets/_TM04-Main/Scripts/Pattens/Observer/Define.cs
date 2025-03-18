@@ -1,18 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using UnityEngine;
 
-public class Define : MonoBehaviour
+public class Define
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public const string ZOMBIE1 = "Zombie1";
+    
+    
+    public const string BULLET_FIRE = "BulletFire";
 }
