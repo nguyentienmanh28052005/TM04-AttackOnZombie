@@ -34,7 +34,7 @@ public class TestInstanceMousePosition : MonoBehaviour
             {
                 //int index = Random.Range(0, 6);
                 //Instantiate(_gameObjects[1], new Vector3(raycastHit.point.x, 0, raycastHit.point.z), Quaternion.identity);
-                PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, new Vector3(raycastHit.point.x, 0, raycastHit.point.z));
+                PoolingSkill.Instance.SpawnSkill(Define.SKILL_ICE, new Vector3(raycastHit.point.x, 0, raycastHit.point.z));
             }
         }
         if (Input.GetKeyUp(KeyCode.Mouse1))

@@ -2,17 +2,38 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PoolingSkill : MonoBehaviour
+public class PoolingSkill : Singleton<PoolingSkill>
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private IceSkill _iceSkillPrefab;
+
+
+    private Queue<IceSkill> _iceSkillQueue = new Queue<IceSkill>();
+
+    protected override void Awake()
     {
-        
+        base.Awake();
+    }
+    
+    public void SpawnSkill(string nameSkill, Vector3 position)
+    {
+        if (nameSkill == Define.SKILL_ICE)
+        {
+            if (_iceSkillQueue.Count == 0)
+            {
+                IceSkill _iceSkill = Instantiate(_iceSkillPrefab, position, Quaternion.identity);
+                _iceSkillQueue.Enqueue(_iceSkill);
+            }
+            _iceSkillQueue.Dequeue().Born(position);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void BackToPool(ASkill _skill)
     {
-        
+        switch (_skill)
+        {
+            case IceSkill _iceSkill:
+                _iceSkillQueue.Enqueue(_iceSkill);
+                break;
+        }
     }
 }

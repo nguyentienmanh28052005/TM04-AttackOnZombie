@@ -7,18 +7,7 @@ public abstract class AEnemy : AObserver
 {
     protected Animator _animator;
     protected GameObject _player;
-
-    
-    protected static int id = 0;
-    protected float dmg;
-    protected float originSpeed;
-    protected float attackSpeed;
-    protected float attackRange;
-    protected float detectionRadius = 0.02f;
-    protected float currentSpeed;
-    protected Vector2 moveDir;
-    protected bool isFacingLeft;
-    protected float countAttackTime;
+    [SerializeField] private GameObject _visual;
 
     
 
@@ -55,6 +44,19 @@ public abstract class AEnemy : AObserver
         if (other.CompareTag("Bullet"))
         {
             Deadth();
+        }
+
+        if (other.CompareTag("RangeCamera"))
+        {
+            _visual.SetActive(true);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("RangeCamera"))
+        {
+            _visual.SetActive(false);
         }
     }
 }

@@ -9,4 +9,5 @@ public class Define
     
     
     public const string BULLET_FIRE = "BulletFire";
+    public const string SKILL_ICE = "IceSkill";
 }

@@ -9,6 +9,7 @@ TagManager:
   - PlayerPos
   - Input2
   - CinemachineTarget
+  - RangeCamera
   layers:
   - Default
   - TransparentFX

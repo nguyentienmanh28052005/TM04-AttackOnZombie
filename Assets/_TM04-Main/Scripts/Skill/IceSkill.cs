@@ -2,25 +2,20 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class IceSkill : ASkill
 {
-    private int res = 0;
-    [SerializeField] private GameObject _gameObject;
-    public void Update()
+    public void OnEnable()
     {
         Handler();
-    }
-    
-    public void Handler()
-    {
-        Collider[] _objectHit = Physics.OverlapSphere(transform.position, 10f, LayerMask.GetMask("Enemy"));
-        if (_objectHit.Length > 0 && res < 1)
-        {
-            res++;
-            Instantiate(_gameObject, _objectHit[0].transform.position, Quaternion.identity);
-        }
-            
+        StartCoroutine(CoroutineSkill());
     }
 
+    protected override void Handler()
+    {
+        Collider[] _objectHit = Physics.OverlapSphere(transform.position, 30f, LayerMask.GetMask("Enemy"));
+            
+            transform.position = _objectHit[Random.Range(0, _objectHit.Length)].transform.position;
+    }
 }
