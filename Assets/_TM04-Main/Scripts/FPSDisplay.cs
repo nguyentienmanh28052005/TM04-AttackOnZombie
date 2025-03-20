@@ -20,7 +20,7 @@ public class FPSDisplay : MonoBehaviour
     {
         frameDeltaTimeArray[lastFrameIndex] = Time.unscaledDeltaTime;
         lastFrameIndex = (lastFrameIndex + 1) % frameDeltaTimeArray.Length;
-        _Text.text = Mathf.RoundToInt(CalculateFPS()).ToString();
+        _Text.text = Mathf.RoundToInt(CalculateFPS()).ToString() + ":" + LevelManager._countEnemy;
     }
 
     private float CalculateFPS()

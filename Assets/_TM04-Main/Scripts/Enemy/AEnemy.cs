@@ -13,8 +13,10 @@ public abstract class AEnemy : AObserver
 
     protected void MoveToGameObject(GameObject _gameObject)
     {
-        transform.LookAt(new Vector3(_gameObject.transform.position.x, 0, _gameObject.transform.position.z));
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_gameObject.transform.position.x, 0, _gameObject.transform.position.z), 1f * Time.deltaTime);
+        Quaternion currentRotation = transform.rotation;
+                    Quaternion targetRotation = Quaternion.LookRotation(_gameObject.transform.position - transform.position);
+                    transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, 1f * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_gameObject.transform.position.x, 0, _gameObject.transform.position.z), 2f * Time.deltaTime);
     }
 
     protected void TakeDamage()
@@ -22,7 +24,7 @@ public abstract class AEnemy : AObserver
         
     }
 
-    protected void Deadth()
+    public void Deadth()
     {
         gameObject.SetActive(false);
         PoolingEnemy.Instance.BackToPool(this);

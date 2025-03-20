@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpawnEnemyAroundPlayer : MonoBehaviour
 {
     private GameObject _player;
-    private float _cooldown = 1f;
+    private float _cooldown = 0.2f;
     private float _time = 0;
 
     private float _radius = 30f;
@@ -21,7 +21,7 @@ public class SpawnEnemyAroundPlayer : MonoBehaviour
         while (_time > _cooldown)
         {
             _time = 0;
-            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            if(LevelManager._countEnemy < 100f) PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
         }
     }
     

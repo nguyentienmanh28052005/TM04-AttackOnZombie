@@ -156,9 +156,14 @@ namespace StarterAssets
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
+            //JumpAndGravity();
             GroundedCheck();
             Move();
+
+            if (_input.jump)
+            {
+                Aim();
+            }
         }
 
         private void LateUpdate()
@@ -166,6 +171,44 @@ namespace StarterAssets
             CameraRotation();
         }
 
+        public void Aim()
+        {
+            Collider nearestCollider = FindClosestCollider(transform.position, 30f);
+            // Quaternion currentRotation = transform.rotation;
+            // Quaternion targetRotation = Quaternion.LookRotation(new Vector3(nearestCollider.transform.position.x, 0f, nearestCollider.transform.position.z) - transform.position);
+            // transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, 10f * Time.deltaTime);
+            transform.LookAt(nearestCollider.transform.position);
+        }
+        
+        Collider FindClosestCollider(Vector3 center, float radius)
+        {
+            // Lấy tất cả collider trong bán kính
+            Collider[] colliders = Physics.OverlapSphere(center, radius, LayerMask.GetMask("Enemy"));
+
+            if (colliders.Length == 0) return null; // Không có collider nào
+
+            Collider closest = null;
+            float minDistance = Mathf.Infinity;
+
+            // Duyệt qua từng collider để tìm khoảng cách ngắn nhất
+            foreach (Collider col in colliders)
+            {
+                // Tính khoảng cách từ trung tâm đến collider
+                float distance = Vector3.Distance(center, col.transform.position);
+            
+                // Bỏ qua chính đối tượng hiện tại nếu cần (tùy thuộc vào thiết kế game)
+                if (col.gameObject == gameObject) continue;
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    closest = col;
+                }
+            }
+
+            return closest;
+        }
+        
         private void AssignAnimationIDs()
         {
             _animIDSpeed = Animator.StringToHash("Speed");

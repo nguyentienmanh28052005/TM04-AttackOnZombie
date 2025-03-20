@@ -16,6 +16,7 @@ public class PoolingEnemy : Singleton<PoolingEnemy>
     
     public void SpawnEnemy(string _nameEnemy, Vector3 _position)
     {
+        LevelManager._countEnemy++;
         if (_nameEnemy == Define.ZOMBIE1)
         {
             if (_zombie1Queue.Count == 0)
@@ -32,6 +33,7 @@ public class PoolingEnemy : Singleton<PoolingEnemy>
         switch (_enemy)
         {
             case Zombie1 _zombie1:
+                LevelManager._countEnemy--;
                 _zombie1Queue.Enqueue(_zombie1);
                 break;
         }
