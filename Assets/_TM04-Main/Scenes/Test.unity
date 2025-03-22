@@ -419,10 +419,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 351868662179460072, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
-      propertyPath: m_TrackedObjectOffset.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2070925441746177671, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: m_Name
       value: PlayerFollowCamera
@@ -470,10 +466,6 @@ PrefabInstance:
     - target: {fileID: 7155993843489888665, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 2458103570
-      objectReference: {fileID: 0}
-    - target: {fileID: 7155993843489888665, guid: a1a802ecaf6775746bb2a929fb554ad8, type: 3}
-      propertyPath: InScenePlacedSourceGlobalObjectIdHash
-      value: 2508941199
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

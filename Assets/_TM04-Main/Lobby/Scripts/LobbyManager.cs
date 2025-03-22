@@ -379,7 +379,7 @@ public class LobbyManager : MonoBehaviour {
             {
                 Debug.Log("Start Game");
                  //NetworkManager.Singleton.SceneManager.LoadScene("GameScene", LoadSceneMode.Single);
-                 SceneManager.LoadScene("Test");
+                 SceneManager.LoadScene("GameScene");
 
                 string relayCode = await TestRelay.Instance.CreateRelay();
                 

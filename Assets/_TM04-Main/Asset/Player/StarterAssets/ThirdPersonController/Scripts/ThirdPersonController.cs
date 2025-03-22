@@ -99,7 +99,7 @@ using UnityEngine.InputSystem;
         private int _animIDMotionSpeed;
 
         private CinemachineCameraController _cameraController;
-        
+        private Transform _startPosition;
         
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -135,12 +135,18 @@ using UnityEngine.InputSystem;
             }
         }
 
-        private void Start()
+        public override void OnNetworkSpawn()
         {
-            
+            _startPosition = GameObject.FindGameObjectWithTag("StartPosition").transform;
+            gameObject.transform.position = _startPosition.transform.position;
+            gameObject.transform.rotation = _startPosition.transform.rotation;
             _cameraController = GameObject.FindWithTag("CinemachineTarget")
                 .GetComponent<CinemachineCameraController>();
-           _cameraController.Add();
+            _cameraController.Add();
+        }
+        
+        private void Start()
+        {
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);

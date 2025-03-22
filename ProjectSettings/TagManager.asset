@@ -10,6 +10,7 @@ TagManager:
   - Input2
   - CinemachineTarget
   - RangeCamera
+  - StartPosition
   layers:
   - Default
   - TransparentFX
