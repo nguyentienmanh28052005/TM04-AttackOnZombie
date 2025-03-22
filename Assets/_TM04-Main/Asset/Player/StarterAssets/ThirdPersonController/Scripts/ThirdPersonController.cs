@@ -1,4 +1,5 @@
-﻿ using UnityEngine;
+﻿ using Unity.Netcode;
+ using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
 #endif
@@ -6,13 +7,12 @@ using UnityEngine.InputSystem;
 /* Note: animations are called via the controller for both the character and capsule using animator null checks
  */
 
-namespace StarterAssets
-{
+
     [RequireComponent(typeof(CharacterController))]
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : MonoBehaviour
+    public class ThirdPersonController : NetworkBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -98,6 +98,9 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        private CinemachineCameraController _cameraController;
+        
+        
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -134,6 +137,10 @@ namespace StarterAssets
 
         private void Start()
         {
+            
+            _cameraController = GameObject.FindWithTag("CinemachineTarget")
+                .GetComponent<CinemachineCameraController>();
+           _cameraController.Add();
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);
@@ -154,6 +161,7 @@ namespace StarterAssets
 
         private void Update()
         {
+            if(!IsOwner) return;
             _hasAnimator = TryGetComponent(out _animator);
 
             //JumpAndGravity();
@@ -432,4 +440,3 @@ namespace StarterAssets
             }
         }
     }
-}

@@ -22,9 +22,11 @@ public class MobileDisableAutoSwitchControls : MonoBehaviour
 
     void Start()
     {
+        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
         DisableAutoSwitchControls();
     }
 
+    
     void DisableAutoSwitchControls()
     {
         playerInput.neverAutoSwitchControlSchemes = true;

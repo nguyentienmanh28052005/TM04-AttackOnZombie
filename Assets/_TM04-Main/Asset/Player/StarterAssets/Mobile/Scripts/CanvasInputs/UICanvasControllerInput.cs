@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace StarterAssets
@@ -7,6 +8,11 @@ namespace StarterAssets
 
         [Header("Output")]
         public StarterAssetsInputs starterAssetsInputs;
+
+        public void Start()
+        {
+            starterAssetsInputs = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssetsInputs>();
+        }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
         {
