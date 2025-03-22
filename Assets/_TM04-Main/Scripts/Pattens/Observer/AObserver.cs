@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.Netcode;
 using UnityEngine;
 
-public abstract class AObserver : MonoBehaviour
+public abstract class AObserver : NetworkBehaviour
 {
     private List<IObserver> _observers = new List<IObserver>();
     

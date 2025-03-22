@@ -140,6 +140,7 @@ using UnityEngine.InputSystem;
         public override void OnNetworkSpawn()
         {
             _startPosition = GameObject.FindGameObjectWithTag("StartPosition").transform;
+            Debug.Log(_startPosition.transform.position);
             gameObject.transform.position = _startPosition.transform.position;
             gameObject.transform.rotation = _startPosition.transform.rotation;
             

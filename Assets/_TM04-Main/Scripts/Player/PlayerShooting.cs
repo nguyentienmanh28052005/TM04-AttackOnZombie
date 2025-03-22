@@ -18,15 +18,17 @@ public class PlayerShooting : NetworkBehaviour
 
     void Update()
     {
+        if(!IsOwner) return;
         // Kiểm tra nếu nhấn phím bắn (ví dụ: chuột trái) và đã qua thời gian cooldown
         if (_inputs.jump && Time.time >= nextShootTime)
         {
-            ShootRaycast();
+            ShootRaycastServerRpc();
             nextShootTime = Time.time + shootCooldown; // Cập nhật thời gian cooldown
         }
     }
 
-    void ShootRaycast()
+    [ServerRpc(RequireOwnership = false)]
+    void ShootRaycastServerRpc()
     {
         // Điểm bắt đầu của tia là vị trí người chơi
         Vector3 rayOrigin = new Vector3(transform.position.x, 0.85f, transform.position.z);
@@ -54,5 +56,13 @@ public class PlayerShooting : NetworkBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawRay(new Vector3(transform.position.x, 0.85f, transform.position.z), transform.forward * rayDistance);
+    }
+    
+    
+    
+    [ServerRpc(RequireOwnership = false)]
+    public void DeathServerRpc()
+    {
+        //_zombie1.Deadth();
     }
 }

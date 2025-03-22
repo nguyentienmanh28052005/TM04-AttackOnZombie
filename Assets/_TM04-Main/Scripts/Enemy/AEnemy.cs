@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public abstract class AEnemy : AObserver
@@ -26,27 +27,32 @@ public abstract class AEnemy : AObserver
 
     public void Deadth()
     {
-        gameObject.SetActive(false);
         PoolingEnemy.Instance.BackToPool(this);
     }
     
     public virtual void Born(Vector3 _position)
     {
-        transform.position = _position;
-        //countAttackTime = 1 / attackSpeed;
-        //currentState = moveState;
-
+        if (IsServer) // Chỉ server đặt vị trí
+        {
+            transform.position = _position;
+        }
         gameObject.SetActive(true);
-        //hpManager.HealFullHp();
-        //currentState.EnterState(this);
+        // transform.position = _position;
+        // //countAttackTime = 1 / attackSpeed;
+        // //currentState = moveState;
+        //
+        // gameObject.SetActive(true);
+        // //hpManager.HealFullHp();
+        // //currentState.EnterState(this);
     }
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Bullet"))
-        {
-            Deadth();
-        }
+        // if (!IsServer) return;
+        // if (other.CompareTag("Bullet"))
+        // {
+        //     TakeDamageServerRpc();
+        // }
 
         // if (other.CompareTag("RangeCamera"))
         // {
@@ -61,4 +67,7 @@ public abstract class AEnemy : AObserver
         //     _visual.SetActive(false);
         // }
     }
+    
+    
+    
 }

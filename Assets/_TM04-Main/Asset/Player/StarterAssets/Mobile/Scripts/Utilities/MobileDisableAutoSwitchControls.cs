@@ -15,8 +15,6 @@ using UnityEngine.InputSystem;
 
 public class MobileDisableAutoSwitchControls : NetworkBehaviour
 {
-    
-#if ENABLE_INPUT_SYSTEM && (UNITY_IOS || UNITY_ANDROID)
 
     [Header("Target")]
     public PlayerInput playerInput;
@@ -52,6 +50,4 @@ public class MobileDisableAutoSwitchControls : NetworkBehaviour
         Debug.LogWarning("No local player found!");
     }
 }
-    
-#endif
 
