@@ -11,6 +11,8 @@ TagManager:
   - CinemachineTarget
   - RangeCamera
   - StartPosition
+  - Home
+  - UIMobile
   layers:
   - Default
   - TransparentFX

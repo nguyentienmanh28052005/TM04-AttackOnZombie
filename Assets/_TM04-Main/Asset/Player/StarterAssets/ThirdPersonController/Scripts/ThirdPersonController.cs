@@ -100,6 +100,8 @@ using UnityEngine.InputSystem;
 
         private CinemachineCameraController _cameraController;
         private Transform _startPosition;
+        private MobileDisableAutoSwitchControls _mobileDisableAutoSwitchControls;
+        private UICanvasControllerInput _uiCanvasControllerInput;
         
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -140,6 +142,14 @@ using UnityEngine.InputSystem;
             _startPosition = GameObject.FindGameObjectWithTag("StartPosition").transform;
             gameObject.transform.position = _startPosition.transform.position;
             gameObject.transform.rotation = _startPosition.transform.rotation;
+            
+            _uiCanvasControllerInput = GameObject.FindGameObjectWithTag("UIMobile")
+                .GetComponentInChildren<UICanvasControllerInput>();
+            _mobileDisableAutoSwitchControls = GameObject.FindGameObjectWithTag("UIMobile")
+                .GetComponentInChildren<MobileDisableAutoSwitchControls>();
+            _uiCanvasControllerInput.FindLocalPlayer();
+            _mobileDisableAutoSwitchControls.FindLocalPlayer();
+            
             _cameraController = GameObject.FindWithTag("CinemachineTarget")
                 .GetComponent<CinemachineCameraController>();
             _cameraController.Add();

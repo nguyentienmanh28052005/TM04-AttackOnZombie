@@ -1,9 +1,8 @@
 using System;
+using Unity.Netcode;
 using UnityEngine;
 
-namespace StarterAssets
-{
-    public class UICanvasControllerInput : MonoBehaviour
+    public class UICanvasControllerInput : NetworkBehaviour
     {
 
         [Header("Output")]
@@ -11,7 +10,7 @@ namespace StarterAssets
 
         public void Start()
         {
-            starterAssetsInputs = GameObject.FindGameObjectWithTag("Player").GetComponent<StarterAssetsInputs>();
+            
         }
 
         public void VirtualMoveInput(Vector2 virtualMoveDirection)
@@ -34,6 +33,26 @@ namespace StarterAssets
             starterAssetsInputs.SprintInput(virtualSprintState);
         }
         
-    }
+        public void FindLocalPlayer()
+        {
+            // Lấy tất cả GameObject có tag "Player"
+            GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-}
+            foreach (GameObject player in players)
+            {
+                // Lấy NetworkObject từ GameObject
+                NetworkObject networkObject = player.GetComponent<NetworkObject>();
+            
+                if (networkObject != null && networkObject.IsOwner)
+                {
+                    starterAssetsInputs = networkObject.GetComponent<StarterAssetsInputs>();
+                    return;
+                }
+            }
+
+            Debug.LogWarning("No local player found!");
+        }
+    }
+        
+    
+

@@ -7,7 +7,7 @@ public class Zombie1 : AEnemy
     // Start is called before the first frame update
     void Start()
     {
-        _player = GameObject.FindWithTag("Player");
+        _player = GameObject.FindWithTag("Home");
     }
 
     // Update is called once per frame

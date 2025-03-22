@@ -7,12 +7,13 @@ This is fixed in Input System 1.1.
 For the time-being; this script will disable a PlayerInput's auto switch control schemes; when project is built to mobile.
 */
 
+using Unity.Netcode;
 using UnityEngine;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
-public class MobileDisableAutoSwitchControls : MonoBehaviour
+public class MobileDisableAutoSwitchControls : NetworkBehaviour
 {
     
 #if ENABLE_INPUT_SYSTEM && (UNITY_IOS || UNITY_ANDROID)
@@ -22,7 +23,6 @@ public class MobileDisableAutoSwitchControls : MonoBehaviour
 
     void Start()
     {
-        playerInput = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerInput>();
         DisableAutoSwitchControls();
     }
 
@@ -31,7 +31,27 @@ public class MobileDisableAutoSwitchControls : MonoBehaviour
     {
         playerInput.neverAutoSwitchControlSchemes = true;
     }
-
-#endif
     
+    public void FindLocalPlayer()
+    {
+        // Lấy tất cả GameObject có tag "Player"
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        foreach (GameObject player in players)
+        {
+            // Lấy NetworkObject từ GameObject
+            NetworkObject networkObject = player.GetComponent<NetworkObject>();
+            
+            if (networkObject != null && networkObject.IsOwner)
+            {
+                playerInput = networkObject.GetComponent<PlayerInput>();
+                return;
+            }
+        }
+
+        Debug.LogWarning("No local player found!");
+    }
 }
+    
+#endif
+

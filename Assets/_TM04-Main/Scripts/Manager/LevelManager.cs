@@ -1,19 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Unity.Netcode;
 
-public class LevelManager : Singleton<LevelManager>
+public class LevelManager : NetworkBehaviour
 {
-    public static int _countEnemy = 0;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public static NetworkVariable<int> _countEnemy = new NetworkVariable<int>(0);
+    
+    
+    
 }

@@ -4568,7 +4568,7 @@ GameObject:
   - component: {fileID: 6951015380750234789}
   - component: {fileID: 1117445875426013473}
   m_Layer: 0
-  m_Name: Player_Lis Multiplayer
+  m_Name: Player_Lis Multiplayer2
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

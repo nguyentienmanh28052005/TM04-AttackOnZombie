@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2070925441746177912}
   - component: {fileID: 2070925441746177913}
-  - component: {fileID: 32232760731907980}
   - component: {fileID: 7155993843489888665}
+  - component: {fileID: 32232760731907980}
   m_Layer: 0
   m_Name: PlayerFollowCamera
   m_TagString: CinemachineTarget
@@ -88,6 +88,27 @@ MonoBehaviour:
       m_PersistentCalls:
         m_Calls: []
   m_ComponentOwner: {fileID: 2070925442191277756}
+--- !u!114 &7155993843489888665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2070925441746177671}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 2508941199
+  InScenePlacedSourceGlobalObjectIdHash: 2508941199
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!114 &32232760731907980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -101,27 +122,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _cinemachineVirtual: {fileID: 2070925441746177913}
---- !u!114 &7155993843489888665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2070925441746177671}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 2458103570
-  InScenePlacedSourceGlobalObjectIdHash: 2508941199
-  AlwaysReplicateAsRoot: 0
-  SynchronizeTransform: 1
-  ActiveSceneSynchronization: 0
-  SceneMigrationSynchronization: 1
-  SpawnWithObservers: 1
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &2070925442191277755
 GameObject:
   m_ObjectHideFlags: 0

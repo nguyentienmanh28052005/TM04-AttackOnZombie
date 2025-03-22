@@ -48,17 +48,17 @@ public abstract class AEnemy : AObserver
             Deadth();
         }
 
-        if (other.CompareTag("RangeCamera"))
-        {
-            _visual.SetActive(true);
-        }
+        // if (other.CompareTag("RangeCamera"))
+        // {
+        //     _visual.SetActive(true);
+        // }
     }
 
     public void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("RangeCamera"))
-        {
-            _visual.SetActive(false);
-        }
+        // if (other.CompareTag("RangeCamera"))
+        // {
+        //     _visual.SetActive(false);
+        // }
     }
 }
