@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 753430469
-  InScenePlacedSourceGlobalObjectIdHash: 0
+  GlobalObjectIdHash: 423219993
+  InScenePlacedSourceGlobalObjectIdHash: 41949043
   AlwaysReplicateAsRoot: 0
   SynchronizeTransform: 1
   ActiveSceneSynchronization: 0
@@ -66,4 +66,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd8827c0913ac844e931543d03a934fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _zombie1Prefab: {fileID: 0}
+  _zombie1Prefab: {fileID: 2100684023008404434, guid: f8f693cf5fc8aad4c9cfec33302ad8dc, type: 3}

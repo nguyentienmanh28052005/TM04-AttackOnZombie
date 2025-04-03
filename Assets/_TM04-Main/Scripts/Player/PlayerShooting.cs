@@ -3,7 +3,7 @@ using StarterAssets;
 using Unity.Netcode;
 using UnityEngine;
 
-public class PlayerShooting : NetworkBehaviour
+public class PlayerShooting : MonoBehaviour
 {
     public float rayDistance = 20f; // Độ dài tia raycast
     public float damage = 10f; // Sát thương gây ra
@@ -18,17 +18,15 @@ public class PlayerShooting : NetworkBehaviour
 
     void Update()
     {
-        if(!IsOwner) return;
         // Kiểm tra nếu nhấn phím bắn (ví dụ: chuột trái) và đã qua thời gian cooldown
         if (_inputs.jump && Time.time >= nextShootTime)
         {
-            ShootRaycastServerRpc();
+            ShootRaycast();
             nextShootTime = Time.time + shootCooldown; // Cập nhật thời gian cooldown
         }
     }
-
-    [ServerRpc(RequireOwnership = false)]
-    void ShootRaycastServerRpc()
+    
+    void ShootRaycast()
     {
         // Điểm bắt đầu của tia là vị trí người chơi
         Vector3 rayOrigin = new Vector3(transform.position.x, 0.85f, transform.position.z);
@@ -48,15 +46,15 @@ public class PlayerShooting : NetworkBehaviour
         }
 
         // Vẽ tia trong Scene view để debug
-        //Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red, 0.5f);
+        Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red, 0.5f);
     }
 
     // Hiển thị phạm vi tia trong Editor
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(new Vector3(transform.position.x, 0.85f, transform.position.z), transform.forward * rayDistance);
-    }
+    // void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawRay(new Vector3(transform.position.x, 0.85f, transform.position.z), transform.forward * rayDistance);
+    // }
     
     
     

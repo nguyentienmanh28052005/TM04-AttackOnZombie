@@ -38,6 +38,6 @@ public class BulletFire1 : MonoBehaviour
         //transform.position = Vector3.MoveTowards(transform.position, new Vector3(_gameObject.x + 20f, 1.4f, _gameObject.z + 20f), 10f * Time.deltaTime);
         //transform.Translate(_vector3 * Time.deltaTime, Space.World);
         //transform.position += _vector3 * Time.deltaTime * 10f;
-        _rb.velocity = _vector3.normalized * 10f;
+        _rb.linearVelocity = _vector3.normalized * 10f;
     }
 }

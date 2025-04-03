@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.Netcode;
 using UnityEngine;
 
 public abstract class AEnemy : AObserver
@@ -27,15 +26,13 @@ public abstract class AEnemy : AObserver
 
     public void Deadth()
     {
+        gameObject.SetActive(false);
         PoolingEnemy.Instance.BackToPool(this);
     }
     
     public virtual void Born(Vector3 _position)
     {
-        if (IsServer) // Chỉ server đặt vị trí
-        {
-            transform.position = _position;
-        }
+        transform.position = _position;
         gameObject.SetActive(true);
         // transform.position = _position;
         // //countAttackTime = 1 / attackSpeed;

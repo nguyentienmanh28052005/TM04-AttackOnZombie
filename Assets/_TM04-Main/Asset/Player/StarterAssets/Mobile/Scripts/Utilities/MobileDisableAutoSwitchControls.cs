@@ -13,7 +13,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 #endif
 
-public class MobileDisableAutoSwitchControls : NetworkBehaviour
+public class MobileDisableAutoSwitchControls : MonoBehaviour
 {
 
     [Header("Target")]

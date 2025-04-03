@@ -1,8 +1,9 @@
-using Unity.Netcode;
 
-public class LevelManager : NetworkBehaviour
+using UnityEngine;
+
+public class LevelManager : MonoBehaviour
 {
-    public static NetworkVariable<int> _countEnemy = new NetworkVariable<int>(0);
+    public static int  _countEnemy = 0;
     
     
     

@@ -3,7 +3,7 @@ using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
 
-public abstract class AObserver : NetworkBehaviour
+public abstract class AObserver : MonoBehaviour
 {
     private List<IObserver> _observers = new List<IObserver>();
     

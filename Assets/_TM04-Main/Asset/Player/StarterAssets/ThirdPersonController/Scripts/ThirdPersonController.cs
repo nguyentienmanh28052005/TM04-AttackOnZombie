@@ -1,4 +1,4 @@
-﻿ using Unity.Netcode;
+﻿
  using UnityEngine;
 #if ENABLE_INPUT_SYSTEM 
 using UnityEngine.InputSystem;
@@ -12,7 +12,7 @@ using UnityEngine.InputSystem;
 #if ENABLE_INPUT_SYSTEM 
     [RequireComponent(typeof(PlayerInput))]
 #endif
-    public class ThirdPersonController : NetworkBehaviour
+    public class ThirdPersonController : MonoBehaviour
     {
         [Header("Player")]
         [Tooltip("Move speed of the character in m/s")]
@@ -137,24 +137,24 @@ using UnityEngine.InputSystem;
             }
         }
 
-        public override void OnNetworkSpawn()
-        {
-            _startPosition = GameObject.FindGameObjectWithTag("StartPosition").transform;
-            Debug.Log(_startPosition.transform.position);
-            gameObject.transform.position = _startPosition.transform.position;
-            gameObject.transform.rotation = _startPosition.transform.rotation;
-            
-            _uiCanvasControllerInput = GameObject.FindGameObjectWithTag("UIMobile")
-                .GetComponentInChildren<UICanvasControllerInput>();
-            _mobileDisableAutoSwitchControls = GameObject.FindGameObjectWithTag("UIMobile")
-                .GetComponentInChildren<MobileDisableAutoSwitchControls>();
-            _uiCanvasControllerInput.FindLocalPlayer();
-            _mobileDisableAutoSwitchControls.FindLocalPlayer();
-            
-            _cameraController = GameObject.FindWithTag("CinemachineTarget")
-                .GetComponent<CinemachineCameraController>();
-            _cameraController.Add();
-        }
+        // public void OnEnable()
+        // {
+        //     _startPosition = GameObject.FindGameObjectWithTag("StartPosition").transform;
+        //     Debug.Log(_startPosition.transform.position);
+        //     gameObject.transform.position = _startPosition.transform.position;
+        //     gameObject.transform.rotation = _startPosition.transform.rotation;
+        //     
+        //     _uiCanvasControllerInput = GameObject.FindGameObjectWithTag("UIMobile")
+        //         .GetComponentInChildren<UICanvasControllerInput>();
+        //     _mobileDisableAutoSwitchControls = GameObject.FindGameObjectWithTag("UIMobile")
+        //         .GetComponentInChildren<MobileDisableAutoSwitchControls>();
+        //     _uiCanvasControllerInput.FindLocalPlayer();
+        //     _mobileDisableAutoSwitchControls.FindLocalPlayer();
+        //     
+        //     _cameraController = GameObject.FindWithTag("CinemachineTarget")
+        //         .GetComponent<CinemachineCameraController>();
+        //     _cameraController.Add();
+        // }
         
         private void Start()
         {
@@ -178,7 +178,6 @@ using UnityEngine.InputSystem;
 
         private void Update()
         {
-            if(!IsOwner) return;
             _hasAnimator = TryGetComponent(out _animator);
 
             //JumpAndGravity();

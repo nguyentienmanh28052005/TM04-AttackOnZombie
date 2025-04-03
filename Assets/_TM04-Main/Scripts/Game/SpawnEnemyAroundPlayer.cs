@@ -51,7 +51,6 @@
 //     }
 //     
 // }
-using Unity.Netcode;
 using UnityEngine;
 
 public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
@@ -63,15 +62,13 @@ public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
 
     void Update()
     {
-        if (!IsServer) return; // Chỉ server thực hiện
-
         _time += Time.deltaTime;
         while (_time > _cooldown)
         {
             _time = 0;
-            if (LevelManager._countEnemy.Value < 100)
+            if (LevelManager._countEnemy < 100)
             {
-                SpawnServerRpc();
+                PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
             }
         }
     }
@@ -85,9 +82,4 @@ public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
         return new Vector3(x, 0, y);
     }
 
-    [ServerRpc(RequireOwnership = false)]
-    public void SpawnServerRpc()
-    {
-        PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
-    }
 }

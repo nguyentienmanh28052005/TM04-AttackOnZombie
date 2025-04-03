@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using StarterAssets;
 using Unity.Cinemachine;
-using Unity.Netcode;
 using UnityEngine;
 
-public class CinemachineCameraController : NetworkBehaviour
+public class CinemachineCameraController : MonoBehaviour
 {
 
     [SerializeField] private CinemachineVirtualCameraBase _cinemachineVirtual;
@@ -39,9 +38,9 @@ public class CinemachineCameraController : NetworkBehaviour
         foreach (GameObject player in players)
         {
             // Lấy NetworkObject từ GameObject
-            NetworkObject networkObject = player.GetComponent<NetworkObject>();
+           GameObject networkObject = player.GetComponent<GameObject>();
             
-            if (networkObject != null && networkObject.IsOwner)
+            if (networkObject != null)
             {
                 _cinemachineVirtual.Follow = networkObject.transform;
                 return;

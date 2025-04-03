@@ -2,7 +2,7 @@ using System;
 using Unity.Netcode;
 using UnityEngine;
 
-    public class UICanvasControllerInput : NetworkBehaviour
+    public class UICanvasControllerInput : MonoBehaviour
     {
 
         [Header("Output")]
