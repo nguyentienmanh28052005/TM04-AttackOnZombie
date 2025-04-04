@@ -66,10 +66,7 @@ public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
         while (_time > _cooldown)
         {
             _time = 0;
-            if (LevelManager._countEnemy < 100)
-            {
-                PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
-            }
+            Spawn();
         }
     }
 
@@ -80,6 +77,32 @@ public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
         float x = center.x + Mathf.Cos(randomAngle) * _radius;
         float y = center.z + Mathf.Sin(randomAngle) * _radius;
         return new Vector3(x, 0, y);
+    }
+
+    private void Spawn()
+    {
+        if(LevelManager.atLevel == 0) PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+        if (LevelManager.atLevel == 1)
+        {
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+        }
+
+        if (LevelManager.atLevel == 2 || LevelManager.atLevel == 3)
+        {
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+        }
+
+        if (LevelManager.atLevel == 4)
+        {
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+            PoolingEnemy.Instance.SpawnEnemy(Define.ZOMBIE1, GetRandomPositionAroundCenter());
+        }
+        
     }
 
 }

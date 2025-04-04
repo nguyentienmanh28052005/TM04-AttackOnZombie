@@ -5,15 +5,15 @@ using UnityEngine;
 public class Zombie1 : AEnemy
 {
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
-        _player = GameObject.FindWithTag("Home");
+        base.Start();
     }
 
     // Update is called once per frame
-    void Update()
+    protected override void Update()
     {
-        MoveToGameObject(_player);
+        base.Update();
     }
     
     

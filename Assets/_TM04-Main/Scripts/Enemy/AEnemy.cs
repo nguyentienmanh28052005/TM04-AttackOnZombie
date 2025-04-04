@@ -8,7 +8,18 @@ public abstract class AEnemy : AObserver
     protected Animator _animator;
     protected GameObject _player;
     [SerializeField] private GameObject _visual;
+    
+    
+    protected virtual void Start()
+    {
+        _player = GameObject.FindWithTag("Home");
+    }
 
+    // Update is called once per frame
+    protected virtual void Update()
+    {
+        MoveToGameObject(_player);
+    }
     
 
     protected void MoveToGameObject(GameObject _gameObject)
