@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class PlayerShooting : MonoBehaviour
 {
-    public float rayDistance = 20f; // Độ dài tia raycast
-    public float damage = 10f; // Sát thương gây ra
-    public float shootCooldown = 0.5f; // Thời gian chờ giữa các lần bắn
-    private float nextShootTime; // Thời điểm có thể bắn tiếp theo
+    public float rayDistance = 20f;
+    public float damage = 10f; 
+    public float shootCooldown = 0.005f; 
+    private float nextShootTime; 
     private StarterAssetsInputs _inputs;
+
+    [SerializeField] private GameObject _startPosLaze;
 
     public void Start()
     {
@@ -18,34 +20,28 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        // Kiểm tra nếu nhấn phím bắn (ví dụ: chuột trái) và đã qua thời gian cooldown
-        if (_inputs.jump && Time.time >= nextShootTime)
+        if (Time.time >= nextShootTime)
         {
             ShootRaycast();
-            nextShootTime = Time.time + shootCooldown; // Cập nhật thời gian cooldown
+            nextShootTime = Time.time + shootCooldown; 
         }
     }
     
     void ShootRaycast()
     {
-        // Điểm bắt đầu của tia là vị trí người chơi
-        Vector3 rayOrigin = new Vector3(transform.position.x, 0.85f, transform.position.z);
-        // Hướng của tia là transform.forward
-        Vector3 rayDirection = transform.forward;
+        Vector3 rayOrigin = new Vector3(_startPosLaze.transform.position.x, _startPosLaze.transform.position.y, _startPosLaze.transform.position.z);
+        Vector3 rayDirection = _startPosLaze.transform.forward;
 
         RaycastHit hit;
-        // Bắn tia raycast
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, rayDistance))
         {
-            // Kiểm tra nếu tia trúng enemy
             Zombie1 enemy = hit.collider.GetComponent<Zombie1>();
             if (enemy != null)
             {
-                enemy.Deadth(); // Gây sát thương cho enemy
+                enemy.Deadth();
             }
         }
-
-        // Vẽ tia trong Scene view để debug
+        
         Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red, 0.5f);
     }
 
