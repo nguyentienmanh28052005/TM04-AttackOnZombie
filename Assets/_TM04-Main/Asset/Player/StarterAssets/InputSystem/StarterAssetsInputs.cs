@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 	{
 		[Header("Character Input Values")]
 		public Vector2 move;
+		public Vector2 lookTopDown;
 		public Vector2 look;
 		public bool jump;
 		public bool sprint;
@@ -24,7 +25,12 @@ using UnityEngine.InputSystem;
 		{
 			MoveInput(value.Get<Vector2>());
 		}
-
+		
+		public void OnLookTopDown(InputValue value)
+		{
+			MoveInput(value.Get<Vector2>());
+		}
+		
 		public void OnLook(InputValue value)
 		{
 			if(cursorInputForLook)
@@ -49,7 +55,12 @@ using UnityEngine.InputSystem;
 		{
 			move = newMoveDirection;
 		} 
-
+		
+		public void LookTopDownInput(Vector2 newMoveDirection)
+		{
+			lookTopDown = newMoveDirection;
+		}
+		
 		public void LookInput(Vector2 newLookDirection)
 		{
 			look = newLookDirection;

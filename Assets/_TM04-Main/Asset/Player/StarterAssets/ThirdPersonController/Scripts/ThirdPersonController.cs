@@ -83,6 +83,8 @@ using UnityEngine.InputSystem;
         private float _speed;
         private float _animationBlend;
         private float _targetRotation = 0.0f;
+        private float _targetRotation2 = 0.0f;
+
         private float _rotationVelocity;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
@@ -102,6 +104,8 @@ using UnityEngine.InputSystem;
         private Transform _startPosition;
         private MobileDisableAutoSwitchControls _mobileDisableAutoSwitchControls;
         private UICanvasControllerInput _uiCanvasControllerInput;
+
+        private Vector2 _inputMove;
         
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -192,7 +196,7 @@ using UnityEngine.InputSystem;
 
         private void LateUpdate()
         {
-            CameraRotation();
+            //CameraRotation();
         }
 
         public void Aim()
@@ -317,20 +321,29 @@ using UnityEngine.InputSystem;
 
             // normalise input direction
             Vector3 inputDirection = new Vector3(_input.move.x, 0.0f, _input.move.y).normalized;
+            Vector3 inputDirection2 = new Vector3(_input.lookTopDown.x, 0.0f, _input.lookTopDown.y).normalized;
 
             // note: Vector2's != operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is a move input rotate player when the player is moving
-            if (_input.move != Vector2.zero)
-            {
+            // if (_input.move != Vector2.zero)
+            // {
                 _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                   _mainCamera.transform.eulerAngles.y;
-                float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                    RotationSmoothTime);
-
-                // rotate to face input direction relative to camera position
-                transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
-            }
-
+                _targetRotation2 = Mathf.Atan2(inputDirection2.x, inputDirection2.z) * Mathf.Rad2Deg +
+                                  _mainCamera.transform.eulerAngles.y;
+                
+                if (_input.lookTopDown != Vector2.zero)
+                {
+                    float rotation2 = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation2, ref _rotationVelocity,
+                        RotationSmoothTime);
+                    transform.rotation = Quaternion.Euler(0.0f, rotation2, 0.0f);
+                }
+                else
+                {
+                    float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity, RotationSmoothTime);
+                    transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+                }
+            // }
 
             Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 

@@ -17,6 +17,11 @@ using UnityEngine;
         {
             starterAssetsInputs.MoveInput(virtualMoveDirection);
         }
+        
+        public void VirtualLookTopDownInput(Vector2 virtualLookTopDownDirection)
+        {
+            starterAssetsInputs.LookTopDownInput(virtualLookTopDownDirection);
+        }
 
         public void VirtualLookInput(Vector2 virtualLookDirection)
         {

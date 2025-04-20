@@ -58,9 +58,4 @@ public class PlayerShooting : MonoBehaviour
     
     
     
-    [ServerRpc(RequireOwnership = false)]
-    public void DeathServerRpc()
-    {
-        //_zombie1.Deadth();
-    }
 }
