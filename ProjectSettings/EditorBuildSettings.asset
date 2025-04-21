@@ -5,14 +5,17 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/_TM04-Main/Scenes/GameScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/_TM04-Main/Scenes/LobbyScene.unity
     guid: e19ba8b240350654aa4401ea3ee0910a
-  - enabled: 1
+  - enabled: 0
     path: Assets/_TM04-Main/Scenes/Test.unity
     guid: 60e907b6083ab2c4dbda2eed1b8e270f
+  - enabled: 1
+    path: Assets/_TM04-Main/Scenes/GameSingleScene.unity
+    guid: 26b04d91309db5247b8e36bfb53a3ffe
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

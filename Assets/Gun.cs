@@ -25,6 +25,8 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private float BulletSpeed = 100;
 
+    [SerializeField] private StarterAssetsInputs _inputs;
+
     private Animator Animator;
     private float LastShootTime;
 
@@ -35,7 +37,16 @@ public class Gun : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKey(KeyCode.Mouse0))  Shoot();
+        if (_inputs.lookTopDown != Vector2.zero)
+        {
+            ShootingSystem.Play(true);
+            Shoot();
+        }
+        else
+        {
+            ShootingSystem.Pause();
+             ShootingSystem.Clear();
+        }
     }
 
     public void Shoot()
@@ -46,7 +57,6 @@ public class Gun : MonoBehaviour
             // For more details you can see: https://youtu.be/fsDE_mO4RZM or if using Unity 2021+: https://youtu.be/zyzqA_CPz2E
 
             Animator.SetBool("IsShooting", true);
-            ShootingSystem.Play();
             Vector3 direction = GetDirection();
 
             if (Physics.Raycast(BulletSpawnPoint.position, direction, out RaycastHit hit, float.MaxValue, Mask))
