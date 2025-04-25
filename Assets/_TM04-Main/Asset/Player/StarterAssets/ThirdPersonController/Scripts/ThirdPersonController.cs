@@ -187,16 +187,20 @@ using UnityEngine.InputSystem;
             //JumpAndGravity();
             GroundedCheck();
             Move();
-
-            if (_input.jump)
-            {
-                Aim();
-            }
+            _input.SetLookTopDown(_input.lookTopDown.normalized);
+            _input.SetMove(_input.move.normalized);
+            Debug.Log(AngleCalculation(_input.lookTopDown.normalized, _input.move.normalized));
         }
 
         private void LateUpdate()
         {
             //CameraRotation();
+        }
+
+        public float AngleCalculation(Vector2 vector1, Vector2 vector2)
+        {
+            float angle = Vector2.SignedAngle(vector1, vector2);
+            return angle;
         }
 
         public void Aim()

@@ -30,6 +30,16 @@ using UnityEngine.InputSystem;
 		{
 			MoveInput(value.Get<Vector2>());
 		}
+
+		public void SetLookTopDown(Vector2 _new)
+		{
+			lookTopDown = _new;
+		}
+		
+		public void SetMove(Vector2 _new)
+		{
+			move = _new;
+		}
 		
 		public void OnLook(InputValue value)
 		{
