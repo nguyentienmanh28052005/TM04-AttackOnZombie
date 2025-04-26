@@ -121,7 +121,7 @@ public class Gun : MonoBehaviour
             Zombie1 enemy = hit.collider.GetComponent<Zombie1>();
             if (enemy != null)
             {
-                enemy.Deadth();
+                enemy.TakeDamage();
             }
         }
 
