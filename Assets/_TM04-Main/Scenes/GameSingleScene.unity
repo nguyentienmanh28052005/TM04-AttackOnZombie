@@ -707,7 +707,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4416926081852918490, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: SprintSpeed
-      value: 3.5
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5930158855145388821, guid: 64dce48905ffd9b4293e595fa6941544, type: 3}
       propertyPath: m_IsActive
@@ -2805,15 +2805,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7873412992983035690, guid: ef26dd93967d40944a29b51075cc95ae, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 411.93558
+      value: 415.88797
       objectReference: {fileID: 0}
     - target: {fileID: 7873412992983035690, guid: ef26dd93967d40944a29b51075cc95ae, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 18.919966
+      value: 15.369981
       objectReference: {fileID: 0}
     - target: {fileID: 7873412992983035690, guid: ef26dd93967d40944a29b51075cc95ae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 428.89642
+      value: 433.60666
       objectReference: {fileID: 0}
     - target: {fileID: 7873412992983035690, guid: ef26dd93967d40944a29b51075cc95ae, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9744,7 +9744,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 37.84
+  m_CameraDistance: 30.74
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -10307,7 +10307,7 @@ Transform:
   m_GameObject: {fileID: 2070925442761577727}
   serializedVersion: 2
   m_LocalRotation: {x: 0.2432104, y: 0.33036605, z: -0.08852133, w: 0.9076734}
-  m_LocalPosition: {x: 411.93558, y: 18.919966, z: 428.89642}
+  m_LocalPosition: {x: 415.88797, y: 15.369981, z: 433.60666}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13204,6 +13204,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _home: {fileID: 364986543}
+  _cooldown: 1
 --- !u!4 &8195950948332095077
 Transform:
   m_ObjectHideFlags: 0

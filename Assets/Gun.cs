@@ -45,7 +45,7 @@ public class Gun : MonoBehaviour
         else
         {
             ShootingSystem.Pause();
-             ShootingSystem.Clear();
+            ShootingSystem.Clear();
         }
     }
 

@@ -56,7 +56,7 @@ using UnityEngine;
 public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
 {
     public GameObject _home;
-    private float _cooldown = 0.2f;
+    public float _cooldown = 0.2f;
     private float _time = 0;
     private float _radius = 30f;
 

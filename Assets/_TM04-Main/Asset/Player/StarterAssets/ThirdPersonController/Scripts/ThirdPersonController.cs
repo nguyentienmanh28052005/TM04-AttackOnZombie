@@ -230,50 +230,23 @@ using UnityEngine.InputSystem;
             {
                 y = 1;
                 x = 0;
-               Debug.Log(1);
             }
             if ((_angle < 180 && _angle > 135) || (_angle < -135 && _angle > -180))
             {
                 y = -1;
                 x = 0;
-                Debug.Log(2);
-
             }
             if (_angle > 45 && _angle < 135)
             {
                 x = 1;
                 y = 0;
-                Debug.Log(3);
 
             }
             if (_angle < -45 && _angle > -135)
             {
                 x = -1;
                 y = 0;
-                Debug.Log(4);
             } 
-            //Debug.Log(_angle + " " + x + " " + y);
-
-            // if (y == -1)
-            // {
-            //     _velocityX = 0;
-            //     _velocityZ = -0.5f;
-            // }
-            // if (y == 1)
-            // {
-            //     _velocityX = 0;
-            //     _velocityZ = 0.5f;
-            // }
-            // if (x == -1)
-            // {
-            //     _velocityX = 0.5f;
-            //     _velocityZ = 0;
-            // }
-            // if (x == 1)
-            // {
-            //     _velocityX = -0.5f;
-            //     _velocityZ = 0;
-            // }
             if (y == 1 && _velocityZ < _currentMaxVelocity)
             {
                 _velocityZ += Time.deltaTime * _acceleration;
@@ -396,7 +369,7 @@ using UnityEngine.InputSystem;
         private void Move()
         {
             // set target speed based on move speed, sprint speed and if sprint is pressed
-            float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
+            float targetSpeed = _input.lookTopDown ==  Vector2.zero ? SprintSpeed : MoveSpeed;
 
             // a simplistic acceleration and deceleration designed to be easy to remove, replace, or iterate upon
 
@@ -423,10 +396,12 @@ using UnityEngine.InputSystem;
                 _speed = Mathf.Round(_speed * 1000f) / 1000f;
             }
             else
-            {
+            { 
                 _speed = targetSpeed;
             }
-            _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
+              
+            if(targetSpeed >= SprintSpeed) _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed + 5, Time.deltaTime * SpeedChangeRate);
+            else _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 
             // normalise input direction
