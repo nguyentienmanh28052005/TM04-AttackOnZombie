@@ -89,6 +89,8 @@ using UnityEngine.InputSystem;
         private float _verticalVelocity;
         private float _terminalVelocity = 53.0f;
 
+        private float _angle;
+
         // timeout deltatime
         private float _jumpTimeoutDelta;
         private float _fallTimeoutDelta;
@@ -106,6 +108,8 @@ using UnityEngine.InputSystem;
         private UICanvasControllerInput _uiCanvasControllerInput;
 
         private Vector2 _inputMove;
+        
+        
         
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -183,13 +187,11 @@ using UnityEngine.InputSystem;
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
-
             //JumpAndGravity();
             GroundedCheck();
             Move();
-            _input.SetLookTopDown(_input.lookTopDown.normalized);
-            _input.SetMove(_input.move.normalized);
-            Debug.Log(AngleCalculation(_input.lookTopDown.normalized, _input.move.normalized));
+            AnimationMove();
+            // if(_input.lookTopDown != Vector2.zero) _speed 
         }
 
         private void LateUpdate()
@@ -201,6 +203,111 @@ using UnityEngine.InputSystem;
         {
             float angle = Vector2.SignedAngle(vector1, vector2);
             return angle;
+        }
+
+        // public void AnimationMove()
+        // {
+        //     _input.SetLookTopDown(_input.lookTopDown.normalized);
+        //     _input.SetMove(_input.move.normalized);
+        //     Debug.Log(AngleCalculation(_input.lookTopDown.normalized, _input.move.normalized));
+        //     
+        // }
+        
+        private float _velocityZ = 0.0f;
+        private float _velocityX = 0.0f;
+        private float _acceleration = 5.0f;
+        private float _currentMaxVelocity = 0.5f;
+
+        private int x;
+        private int y;
+        
+        private void AnimationMove()
+        {
+            _input.SetLookTopDown(_input.lookTopDown.normalized);
+            _input.SetMove(_input.move.normalized);
+            _angle = AngleCalculation(_input.lookTopDown.normalized, _input.move.normalized);
+            if (_angle > -45 && _angle < 45)
+            {
+                y = 1;
+                x = 0;
+               Debug.Log(1);
+            }
+            if ((_angle < 180 && _angle > 135) || (_angle < -135 && _angle > -180))
+            {
+                y = -1;
+                x = 0;
+                Debug.Log(2);
+
+            }
+            if (_angle > 45 && _angle < 135)
+            {
+                x = 1;
+                y = 0;
+                Debug.Log(3);
+
+            }
+            if (_angle < -45 && _angle > -135)
+            {
+                x = -1;
+                y = 0;
+                Debug.Log(4);
+            } 
+            //Debug.Log(_angle + " " + x + " " + y);
+
+            // if (y == -1)
+            // {
+            //     _velocityX = 0;
+            //     _velocityZ = -0.5f;
+            // }
+            // if (y == 1)
+            // {
+            //     _velocityX = 0;
+            //     _velocityZ = 0.5f;
+            // }
+            // if (x == -1)
+            // {
+            //     _velocityX = 0.5f;
+            //     _velocityZ = 0;
+            // }
+            // if (x == 1)
+            // {
+            //     _velocityX = -0.5f;
+            //     _velocityZ = 0;
+            // }
+            if (y == 1 && _velocityZ < _currentMaxVelocity)
+            {
+                _velocityZ += Time.deltaTime * _acceleration;
+            }
+            if (y == -1 && _velocityZ > -_currentMaxVelocity)
+            {
+                _velocityZ -= Time.deltaTime * _acceleration;
+            }
+            if (x == 1 && _velocityX > -_currentMaxVelocity)
+            {
+                _velocityX -= Time.deltaTime * _acceleration;
+            }
+            if (x == -1 &&  _velocityX < _currentMaxVelocity)
+            {
+                _velocityX += Time.deltaTime * _acceleration;
+            }
+            if (!(y == 1) && _velocityZ > 0.0f)
+            {
+                _velocityZ -= Time.deltaTime * _acceleration;
+            }
+            if (!(y == -1) && _velocityZ < 0.0f)
+            {
+                _velocityZ += Time.deltaTime * _acceleration;
+            }
+            if (!(x == 1) && _velocityX < 0.0f)
+            {
+                _velocityX += Time.deltaTime * _acceleration;
+            }
+            if (!(x == -1) && _velocityX > 0.0f)
+            {
+                _velocityX -= Time.deltaTime * _acceleration;
+            }
+            _animator.SetFloat("VelocityX", _velocityX);
+            _animator.SetFloat("VelocityZ", _velocityZ);
         }
 
         public void Aim()
@@ -304,7 +411,7 @@ using UnityEngine.InputSystem;
             float inputMagnitude = _input.analogMovement ? _input.move.magnitude : 1f;
 
             // accelerate or decelerate to target speed
-            if (currentHorizontalSpeed < targetSpeed - speedOffset ||
+              if (currentHorizontalSpeed < targetSpeed - speedOffset ||
                 currentHorizontalSpeed > targetSpeed + speedOffset)
             {
                 // creates curved result rather than a linear one giving a more organic speed change
@@ -319,7 +426,6 @@ using UnityEngine.InputSystem;
             {
                 _speed = targetSpeed;
             }
-
             _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
             if (_animationBlend < 0.01f) _animationBlend = 0f;
 

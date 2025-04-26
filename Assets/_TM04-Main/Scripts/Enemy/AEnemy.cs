@@ -12,7 +12,7 @@ public abstract class AEnemy : AObserver
     
     protected virtual void Start()
     {
-        _player = GameObject.FindWithTag("Home");
+        _player = GameObject.FindWithTag("Player");
     }
 
     // Update is called once per frame
