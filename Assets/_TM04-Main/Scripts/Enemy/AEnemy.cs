@@ -5,45 +5,86 @@ using UnityEngine;
 
 public abstract class AEnemy : AObserver
 {
-    protected Animator _animator;
-    protected GameObject _player;
-    public int health;
-    private int _maxHealth;
+    private Rigidbody _rb;
+    private Collider _collider;
+    [SerializeField] protected GameObject _player;
     [SerializeField] private GameObject _visual;
+    [SerializeField] protected int _maxHealth;
+    [SerializeField] protected bool _canAttack = true;
+    [SerializeField] protected bool _atOriginState = true;
+    public Animator _animator;
+    public int health;
+    public int speed = 2;
+    public int originSpeed;
+    public int angrySpeed;
+    public int currentSpeed;
+    
     
     
     protected virtual void Start()
     {
+        _rb = GetComponent<Rigidbody>();
+        _collider = GetComponentInChildren<Collider>();
         _player = GameObject.FindWithTag("Player");
+        _animator = GetComponentInChildren<Animator>();
         _maxHealth = health;
+        originSpeed = speed;
+        currentSpeed = speed;
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
         MoveToGameObject(_player);
+        if (Vector3.Distance(transform.position, _player.transform.position) < 2f &&  _canAttack) 
+            StartCoroutine(Attack());
     }
     
-
     protected void MoveToGameObject(GameObject _gameObject)
     {
-        Quaternion currentRotation = transform.rotation;
-                    Quaternion targetRotation = Quaternion.LookRotation(_gameObject.transform.position - transform.position);
-                    transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, 1f * Time.deltaTime);
-        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_gameObject.transform.position.x, 0, _gameObject.transform.position.z), 2f * Time.deltaTime);
+        // Quaternion currentRotation = transform.rotation;
+        //             Quaternion targetRotation = Quaternion.LookRotation(_gameObject.transform.position - transform.position);
+        //             transform.rotation = Quaternion.Slerp(currentRotation, targetRotation, 1f * Time.deltaTime);
+        transform.LookAt(_player.transform);
+        transform.position = Vector3.MoveTowards(transform.position, new Vector3(_gameObject.transform.position.x, 0, _gameObject.transform.position.z), speed  * Time.deltaTime);
     }
 
     public void TakeDamage()
     {
         health -= 5;
+        if(_canAttack)
+        {
+            speed = angrySpeed;
+            currentSpeed = speed;
+        }
+        if (_atOriginState)
+        {
+            _animator.SetBool("Angry",  true);
+            _atOriginState = false;
+        }
         if(health < 0) Deadth();
     }
 
     public void Deadth()
     {
-        health = _maxHealth;
-        gameObject.SetActive(false);
+        SetOrigin();
         PoolingEnemy.Instance.BackToPool(this);
+    }
+
+    protected virtual void SetOrigin()
+    {
+        if (!_canAttack)
+        {
+            _animator.SetBool("Attack", false);
+            speed = currentSpeed;
+            _canAttack = true;
+        }
+        health = _maxHealth;
+        speed = originSpeed;
+        currentSpeed = speed;
+        gameObject.SetActive(false);
+        _animator.SetBool("Angry",  false);
+        _atOriginState = true;
     }
     
     public virtual void Born(Vector3 _position)
@@ -59,28 +100,17 @@ public abstract class AEnemy : AObserver
         // //currentState.EnterState(this);
     }
 
-    public void OnTriggerEnter(Collider other)
+    protected virtual IEnumerator Attack()
     {
-        // if (!IsServer) return;
-        // if (other.CompareTag("Bullet"))
-        // {
-        //     TakeDamageServerRpc();
-        // }
-
-        // if (other.CompareTag("RangeCamera"))
-        // {
-        //     _visual.SetActive(true);
-        // }
+        _rb.velocity = Vector3.zero;
+        _canAttack = false;
+        speed = 0;
+        _animator.SetBool("Attack", true);
+        yield return new WaitForSeconds(1.5f);
+        _animator.SetBool("Attack", false);
+        speed = currentSpeed;
+        _canAttack = true;
+        
     }
-
-    public void OnTriggerExit(Collider other)
-    {
-        // if (other.CompareTag("RangeCamera"))
-        // {
-        //     _visual.SetActive(false);
-        // }
-    }
-    
-    
     
 }

@@ -57,13 +57,14 @@ public class SpawnEnemyAroundPlayer : Singleton<SpawnEnemyAroundPlayer>
 {
     public GameObject _home;
     public float _cooldown = 0.2f;
+    public int _maxEnemy;
     private float _time = 0;
     private float _radius = 30f;
 
     void Update()
     {
         _time += Time.deltaTime;
-        while (_time > _cooldown && LevelManager.countEnemy < 50)
+        while (_time > _cooldown && LevelManager.countEnemy < _maxEnemy)
         {
             _time = 0;
             Spawn();

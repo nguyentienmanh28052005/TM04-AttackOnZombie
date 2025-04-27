@@ -17,5 +17,4 @@ public class Zombie1 : AEnemy
     }
     
     
-    
 }
