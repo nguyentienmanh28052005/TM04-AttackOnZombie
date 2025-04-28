@@ -35,6 +35,7 @@ public class PlayerManager : Singleton<PlayerManager>
     private void Update()
     {
         UpdateAttribute();
+        // if(_playerHealth < 0) 
     }
 
     private void UpdateAttribute()
@@ -75,5 +76,16 @@ public class PlayerManager : Singleton<PlayerManager>
         _textHealth.text = health.ToString();
         _textFood.text = food.ToString();
         _textWater.text = water.ToString();
+    }
+
+    public float GetHealth()
+    {
+        return _playerHealth;
+    }
+
+    public void SetHealth(float newHealth)
+    {
+        _playerHealth = newHealth;
+        SetText(_playerHealth, _playerFood, _playerWater);
     }
 }

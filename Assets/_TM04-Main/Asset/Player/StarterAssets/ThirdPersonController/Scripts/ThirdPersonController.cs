@@ -506,4 +506,14 @@ public class ThirdPersonController : MonoBehaviour
             AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
         }
     }
+    
+    public void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+            float health = PlayerManager.Instance.GetHealth();
+            health -= 20;
+            PlayerManager.Instance.SetHealth(health);
+        }
+    }
 }
