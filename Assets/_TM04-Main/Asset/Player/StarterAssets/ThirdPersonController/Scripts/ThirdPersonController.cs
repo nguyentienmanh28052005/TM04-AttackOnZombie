@@ -157,6 +157,7 @@ public class ThirdPersonController : MonoBehaviour
         GroundedCheck();
         Move();
         AnimationMove();
+        GravityA();
     }
 
     private void LateUpdate()
@@ -371,7 +372,64 @@ public class ThirdPersonController : MonoBehaviour
         }
     }
 
-    private void JumpAndGravity()
+    // private void JumpAndGravity()
+    // {
+    //     if (Grounded)
+    //     {
+    //         _fallTimeoutDelta = FallTimeout;
+    //
+    //         if (_hasAnimator)
+    //         {
+    //             _animator.SetBool(_animIDJump, false);
+    //             _animator.SetBool(_animIDFreeFall, false);
+    //         }
+    //
+    //         if (_verticalVelocity < 0.0f)
+    //         {
+    //             _verticalVelocity = -2f;
+    //         }
+    //
+    //         if (_input.jump && _jumpTimeoutDelta <= 0.0f)
+    //         {
+    //             _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
+    //
+    //             if (_hasAnimator)
+    //             {
+    //                 _animator.SetBool(_animIDJump, true);
+    //             }
+    //         }
+    //
+    //         if (_jumpTimeoutDelta >= 0.0f)
+    //         {
+    //             _jumpTimeoutDelta -= Time.deltaTime;
+    //         }
+    //     }
+    //     else
+    //     {
+    //         _jumpTimeoutDelta = JumpTimeout;
+    //
+    //         if (_fallTimeoutDelta >= 0.0f)
+    //         {
+    //             _fallTimeoutDelta -= Time.deltaTime;
+    //         }
+    //         else
+    //         {
+    //             if (_hasAnimator)
+    //             {
+    //                 _animator.SetBool(_animIDFreeFall, true);
+    //             }
+    //         }
+    //
+    //         _input.jump = false;
+    //     }
+    //
+    //     if (_verticalVelocity < _terminalVelocity)
+    //     {
+    //         _verticalVelocity += Gravity * Time.deltaTime;
+    //     }
+    // }
+    
+    private void GravityA()
     {
         if (Grounded)
         {
@@ -379,7 +437,6 @@ public class ThirdPersonController : MonoBehaviour
 
             if (_hasAnimator)
             {
-                _animator.SetBool(_animIDJump, false);
                 _animator.SetBool(_animIDFreeFall, false);
             }
 
@@ -387,26 +444,9 @@ public class ThirdPersonController : MonoBehaviour
             {
                 _verticalVelocity = -2f;
             }
-
-            if (_input.jump && _jumpTimeoutDelta <= 0.0f)
-            {
-                _verticalVelocity = Mathf.Sqrt(JumpHeight * -2f * Gravity);
-
-                if (_hasAnimator)
-                {
-                    _animator.SetBool(_animIDJump, true);
-                }
-            }
-
-            if (_jumpTimeoutDelta >= 0.0f)
-            {
-                _jumpTimeoutDelta -= Time.deltaTime;
-            }
         }
         else
         {
-            _jumpTimeoutDelta = JumpTimeout;
-
             if (_fallTimeoutDelta >= 0.0f)
             {
                 _fallTimeoutDelta -= Time.deltaTime;
@@ -418,8 +458,6 @@ public class ThirdPersonController : MonoBehaviour
                     _animator.SetBool(_animIDFreeFall, true);
                 }
             }
-
-            _input.jump = false;
         }
 
         if (_verticalVelocity < _terminalVelocity)
@@ -427,6 +465,7 @@ public class ThirdPersonController : MonoBehaviour
             _verticalVelocity += Gravity * Time.deltaTime;
         }
     }
+    
 
     private static float ClampAngle(float lfAngle, float lfMin, float lfMax)
     {

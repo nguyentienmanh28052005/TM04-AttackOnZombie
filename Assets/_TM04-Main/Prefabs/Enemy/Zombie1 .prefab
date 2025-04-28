@@ -587,7 +587,7 @@ MonoBehaviour:
   health: 50
   speed: 2
   originSpeed: 0
-  angrySpeed: 3
+  angrySpeed: 4.5
   currentSpeed: 0
 --- !u!54 &1848640317245898668
 Rigidbody:

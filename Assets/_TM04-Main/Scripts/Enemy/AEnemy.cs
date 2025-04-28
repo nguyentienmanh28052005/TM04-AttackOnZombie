@@ -14,10 +14,10 @@ public abstract class AEnemy : AObserver
     [SerializeField] protected bool _atOriginState = true;
     public Animator _animator;
     public int health;
-    public int speed = 2;
-    public int originSpeed;
-    public int angrySpeed;
-    public int currentSpeed;
+    public float speed = 2;
+    public float originSpeed;
+    public float angrySpeed;
+    public float currentSpeed;
     
     
     
@@ -35,9 +35,11 @@ public abstract class AEnemy : AObserver
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (!_canAttack) _rb.velocity = Vector3.zero;
         MoveToGameObject(_player);
-        if (Vector3.Distance(transform.position, _player.transform.position) < 2f &&  _canAttack) 
+        if ((Vector3.Distance(transform.position, _player.transform.position) < 1.5f)  &&  _canAttack) 
             StartCoroutine(Attack());
+        if(Vector3.Distance(transform.position, _player.transform.position) < 5f) SetAngryState();
     }
     
     protected void MoveToGameObject(GameObject _gameObject)
@@ -52,6 +54,12 @@ public abstract class AEnemy : AObserver
     public void TakeDamage()
     {
         health -= 5;
+        SetAngryState();
+        if(health < 0) Deadth();
+    }
+
+    protected virtual void SetAngryState()
+    {
         if(_canAttack)
         {
             speed = angrySpeed;
@@ -62,7 +70,6 @@ public abstract class AEnemy : AObserver
             _animator.SetBool("Angry",  true);
             _atOriginState = false;
         }
-        if(health < 0) Deadth();
     }
 
     public void Deadth()
@@ -106,7 +113,7 @@ public abstract class AEnemy : AObserver
         _canAttack = false;
         speed = 0;
         _animator.SetBool("Attack", true);
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         _animator.SetBool("Attack", false);
         speed = currentSpeed;
         _canAttack = true;

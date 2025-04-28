@@ -9,7 +9,7 @@ public class FPSDisplay : MonoBehaviour
 {
     private int lastFrameIndex;
     private float[] frameDeltaTimeArray;
-    public TMPro.TextMeshProUGUI _Text;
+    public TextMeshProUGUI _Text;
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class FPSDisplay : MonoBehaviour
     {
         frameDeltaTimeArray[lastFrameIndex] = Time.unscaledDeltaTime;
         lastFrameIndex = (lastFrameIndex + 1) % frameDeltaTimeArray.Length;
-        _Text.text = Mathf.RoundToInt(CalculateFPS()).ToString() + ":" + LevelManager.countEnemy;
+        _Text.text = "FPS: " +  Mathf.RoundToInt(CalculateFPS()).ToString();
     }
 
     private float CalculateFPS()
