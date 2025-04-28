@@ -10,9 +10,6 @@ using UnityEngine;
         OnGameStart,
         OnRound1,
         
-        /// <summary>
-        /// When the game is over
-        /// </summary>
         OnGameLose,
         OnGameWin,
         OnButtonClick,
@@ -44,25 +41,18 @@ using UnityEngine;
     }
     public class MessageManager : Singleton<MessageManager>, ISerializationCallbackReceiver
     {
-        // private static MessageManager instance = null;
-        
-        //Stores information when Serialize data in the subcribers-Dictionary
+
         [HideInInspector] public List<ManhMessageType> _keys = new List<ManhMessageType>();
         [HideInInspector] public List<List<IMessageHandle>> _values = new List<List<IMessageHandle>>();
         
         
         private Dictionary<ManhMessageType, List<IMessageHandle>> subcribers = new Dictionary<ManhMessageType, List<IMessageHandle>>();
-        /*public static MessageManager Instance { get { return instance; } }
-        void Start()
+
+        protected override void Awake()
         {
-            if (instance == null)
-            {
-                instance = this;
-                DontDestroyOnLoad(gameObject);
-            }
-            else
-                Destroy(gameObject);
-        }*/
+            base.Awake();
+        }
+        
         public void AddSubcriber(ManhMessageType type, IMessageHandle handle)
         {
             if (!subcribers.ContainsKey(type))

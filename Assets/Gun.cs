@@ -38,7 +38,7 @@ public class Gun : MonoBehaviour
     private void Update()
     {
         if (_inputs.lookTopDown != Vector2.zero)
-        {
+        {   
             ShootingSystem.Play(true);
             Shoot();
         }
