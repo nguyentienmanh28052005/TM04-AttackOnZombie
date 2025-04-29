@@ -28,7 +28,7 @@ public class Zombie1 : AEnemy
             _stateManager.ChangeState(new Zombie1_AngryState(this, _animator));
         }
         
-        if (Vector3.Distance(transform.position, _player.transform.position) > 8f)
+        if (Vector3.Distance(transform.position, _player.transform.position) > 12f)
         {
             // SetAngryState();
             _stateManager.ChangeState(new Zombie1_IdleState(this, _animator));

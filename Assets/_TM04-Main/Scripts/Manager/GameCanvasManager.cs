@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 public class GameCanvasManager : Singleton<GameCanvasManager>
 {
     // [Header("Canvas Main Menu")] 
-     //[SerializeField] private CanvasStartGame CanvasStartGame;
+     [SerializeField] private CanvasInventory CanvasInventory;
     // [SerializeField] private CanvasCardCollection CanvasCardCollection;
     //
     // [Header("Canvas Lobby")]
@@ -39,8 +39,11 @@ public class GameCanvasManager : Singleton<GameCanvasManager>
     [Header("Something else")]
     public CurrentScene currentScene;
     public GameObject currentCanvas;
-    
-    
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     
     void Start()
     {
@@ -53,16 +56,18 @@ public class GameCanvasManager : Singleton<GameCanvasManager>
 
     private void HideChildren()
     {
+        CanvasInventory.gameObject.SetActive(false);
         foreach(Transform child in transform)
         {
             child.gameObject.SetActive(false);  
         }
     }
+    
 
     IEnumerator AddCanvasToDict()
      {
     yield return new WaitForSeconds(0.02f);
-    //CanvasList.Add(DefineValue.CANVAS_STARTGAME, CanvasStartGame);
+    CanvasList.Add(Define.CANVAS_INVENTORY, CanvasInventory);
 
     //     CanvasList.Add(DefineValue.CANVAS_CREDITS, CanvasCredits);
     //     CanvasList.Add(DefineValue.CANVAS_HUD, CanvasHUD);
