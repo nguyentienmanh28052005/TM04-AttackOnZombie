@@ -52,11 +52,13 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         
         if (typeSlot == TypeSlot.MainGun && newItem != null)
         {
+            newItem.SetTypeImage(false);
             newItem.ChangeImage(true);
             newItem.SetScale(mainGunSlotScale);
         }
         else
         {
+            newItem.SetTypeImage(true);
             newItem.SetScale(baseScale);
             newItem.ChangeImage(false);
         }
@@ -66,10 +68,27 @@ public class InventorySlot : MonoBehaviour, IDropHandler
     {
         if (transform.childCount == 0)
         {
+            Debug.Log("OnDrop");
             InventoryManager.Instance.ChangeSelected(index);
             InventoryItem inventoryItem = eventData.pointerDrag.GetComponent<InventoryItem>();
             inventoryItem.parentAfterDrag = transform; 
             RefreshIMG(inventoryItem);
+            if (typeSlot == TypeSlot.MainGun)
+            {
+                Item newItem = inventoryItem.GetItem();
+                if (newItem.nameItem == Item.NameItem.Sniper1)
+                {
+                    MessageManager.Instance.SendMessage(new Message(ManhMessageType.EquipSniper1));
+                }
+                else if (newItem.nameItem == Item.NameItem.AR4)
+                {
+                    MessageManager.Instance.SendMessage(new Message(ManhMessageType.EquipAR4));
+                }
+            }
+        }
+        else
+        {
+            
         }
     }
 }

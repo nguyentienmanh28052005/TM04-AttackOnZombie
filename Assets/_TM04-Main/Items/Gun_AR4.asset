@@ -14,7 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tile: {fileID: 0}
   range: {x: 5, y: 4}
-  stackable: 1
+  stackable: 0
+  nameItem: 1
   itemType: 0
   image: {fileID: 1010730830, guid: 3873109113dd8a24e8aa4a5e1f21ef33, type: 3}
   equipedImage: {fileID: -924249852, guid: d746fa86808c83e408da9071d2a5db6d, type: 3}

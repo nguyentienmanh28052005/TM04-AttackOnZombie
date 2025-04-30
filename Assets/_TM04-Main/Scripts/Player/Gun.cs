@@ -25,6 +25,8 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private float BulletSpeed = 100;
 
+    [SerializeField] private int _damage;
+
     [SerializeField] private StarterAssetsInputs _inputs;
 
     private Animator Animator;
@@ -121,7 +123,8 @@ public class Gun : MonoBehaviour
             Zombie1 enemy = hit.collider.GetComponent<Zombie1>();
             if (enemy != null)
             {
-                enemy.TakeDamage();
+                //Debug.Log(_damage);
+                enemy.TakeDamage(_damage);
             }
         }
 

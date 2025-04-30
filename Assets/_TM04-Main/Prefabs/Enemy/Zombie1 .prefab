@@ -666,7 +666,7 @@ MonoBehaviour:
   _canAttack: 1
   _atOriginState: 1
   _animator: {fileID: 0}
-  health: 50
+  health: 100
   speed: 2
   originSpeed: 0
   angrySpeed: 4.5

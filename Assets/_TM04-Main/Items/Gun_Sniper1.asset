@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d200b45a828438640abfe37662236b4b, type: 3}
+  m_Name: Gun_Sniper1
+  m_EditorClassIdentifier: 
+  tile: {fileID: 0}
+  range: {x: 5, y: 4}
+  stackable: 0
+  nameItem: 0
+  itemType: 0
+  image: {fileID: -212979620, guid: 5e5c14ddb009d6344aa7143b83e006fc, type: 3}
+  equipedImage: {fileID: -453078777, guid: b8409fd6f7b8b4147bd503856c1f114c, type: 3}

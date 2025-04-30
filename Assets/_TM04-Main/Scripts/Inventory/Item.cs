@@ -17,9 +17,17 @@ public class Item : ScriptableObject
     public bool stackable = true;
 
     [Header("Both")] 
+    public NameItem nameItem;
     public ItemType itemType;
     public Sprite image;
     public Sprite equipedImage;
+    
+    
+    public enum NameItem
+    {
+        Sniper1,
+        AR4,
+    }
     
     public enum ItemType
     {

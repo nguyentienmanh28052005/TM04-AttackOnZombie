@@ -60,10 +60,11 @@ public abstract class AEnemy : AObserver
         MoveToGameObject(_player);
     }
     
-    public virtual void TakeDamage()
+    public virtual void TakeDamage(int damage)
     {
-        health -= 5;
-        if(health < 0) Deadth();
+        health -= damage;
+        Debug.Log(health);
+        if(health <= 0) Deadth();
     }
 
     public virtual void SetAngryState()

@@ -18,6 +18,11 @@ using UnityEngine;
         OnCollectCoin,
         OnDataChanged,
         
+        
+        // Weapon
+        EquipAR4,
+        EquipSniper1,
+        nullWeapon,
     }
     public class Message
     {
@@ -39,7 +44,7 @@ using UnityEngine;
     {
         void Handle(Message message);
     }
-    public class MessageManager : Singleton<MessageManager>, ISerializationCallbackReceiver
+    public class MessageManager : Singleton<MessageManager>
     {
 
         [HideInInspector] public List<ManhMessageType> _keys = new List<ManhMessageType>();
@@ -55,6 +60,7 @@ using UnityEngine;
         
         public void AddSubcriber(ManhMessageType type, IMessageHandle handle)
         {
+            Debug.Log(type);
             if (!subcribers.ContainsKey(type))
                 subcribers[type] = new List<IMessageHandle>();
             if (!subcribers[type].Contains(handle))
@@ -71,6 +77,7 @@ using UnityEngine;
         
         public void SendMessage(Message message)
         {
+            Debug.Log("Send: " + message.type);
             if (subcribers.ContainsKey(message.type))
                 for (int i = subcribers[message.type].Count - 1; i > -1; i--)
                     subcribers[message.type][i].Handle(message);

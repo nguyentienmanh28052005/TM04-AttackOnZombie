@@ -35,9 +35,9 @@ public class Zombie1 : AEnemy
         }
     }
 
-    public override void TakeDamage()
+    public override void TakeDamage(int damage)
     {
-        base.TakeDamage();
+        base.TakeDamage(damage);
         _stateManager.ChangeState(new Zombie1_AngryState(this, _animator));
     }
 
