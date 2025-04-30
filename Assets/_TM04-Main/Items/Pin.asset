@@ -15,4 +15,6 @@ MonoBehaviour:
   tile: {fileID: 0}
   range: {x: 5, y: 4}
   stackable: 1
+  itemType: 2
   image: {fileID: -185068368, guid: 8d8399f38200dbb4a8b57ab61959c11b, type: 3}
+  equipedImage: {fileID: 0}
