@@ -83,6 +83,41 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler,  IE
     {
         inventoryImage = newTypeImage;
     }
+
+    public void SetImageItem()
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        Vector3 baseScale = new Vector3(3.5f, 3.5f, 3.5f);
+        Vector3 mainGunSlotScale = new Vector3(15f, 5f, 3.5f);
+        if (slot.typeSlot == InventorySlot.TypeSlot.BaseSlot)
+        {
+            SetScale(baseScale);
+            image.sprite = item.image;
+            inventoryImage = true;
+        }
+        else if (slot.typeSlot == InventorySlot.TypeSlot.MainGun)
+        {
+            SetScale(mainGunSlotScale);
+            image.sprite = item.equipedImage;
+            inventoryImage = false;
+        }
+    }
+
+    public void MessagePlayer()
+    {
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        if (slot.typeSlot == InventorySlot.TypeSlot.MainGun)
+        {
+            if (item.nameItem == Item.NameItem.Sniper1)
+            {
+                MessageManager.Instance.SendMessage(new Message(ManhMessageType.EquipSniper1));
+            }
+            else if (item.nameItem == Item.NameItem.AR4)
+            {
+                MessageManager.Instance.SendMessage(new Message(ManhMessageType.EquipAR4));
+            }
+        }
+    }
     
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -91,6 +126,8 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler,  IE
         RefreshIMG(this, true);
         image.raycastTarget = false;
         parentAfterDrag = transform.parent;
+        InventoryManager.Instance._currentSlot = GetComponentInParent<InventorySlot>();
+        Debug.Log(GetComponentInParent<InventorySlot>().gameObject.name);
         transform.SetParent(transform.root);
     }
 
@@ -109,5 +146,13 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler,  IE
         Debug.Log("OnEndDrag");
         image.raycastTarget = true;
         transform.SetParent(parentAfterDrag);
+        InventorySlot slot = GetComponentInParent<InventorySlot>();
+        InventoryItem[] items = slot.GetComponentsInChildren<InventoryItem>();
+        if (items.Length == 2)
+        {
+            items[0].transform.SetParent(InventoryManager.Instance._currentSlot.transform);
+            items[0].MessagePlayer();
+            items[0].SetImageItem();
+        }
     }
 }

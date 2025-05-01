@@ -66,7 +66,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount == 0)
+        if (transform.childCount >= 0)
         {
             Debug.Log("OnDrop");
             InventoryManager.Instance.ChangeSelected(index);
@@ -86,9 +86,10 @@ public class InventorySlot : MonoBehaviour, IDropHandler
                 }
             }
         }
-        else
-        {
-            
-        }
+        // else if(transform.childCount == 1)
+        // {
+        //     InventoryItem items = GetComponentInChildren<InventoryItem>();
+        //     items.transform.SetParent(InventoryManager.Instance._currentSlot.transform);
+        // }
     }
 }

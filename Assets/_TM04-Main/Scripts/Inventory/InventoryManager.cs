@@ -9,6 +9,8 @@ public class InventoryManager : Singleton<InventoryManager>
     public InventorySlot[] inventorySlots;
     public GameObject inventoryItemPrefab;
 
+    public InventorySlot _currentSlot;
+    
     private int selectedSlot = -1;
 
     protected override void Awake()
