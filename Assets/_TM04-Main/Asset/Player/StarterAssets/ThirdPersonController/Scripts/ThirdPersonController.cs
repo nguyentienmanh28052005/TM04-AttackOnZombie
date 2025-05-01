@@ -111,6 +111,7 @@ public class ThirdPersonController : MonoBehaviour
     private const float _threshold = 0.01f;
 
     private bool _hasAnimator;
+    private float _weaponState = 0f;
 
     private bool IsCurrentDeviceMouse
     {
@@ -134,6 +135,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Start()
     {
+        //_animator.SetFloat("State", _weaponState);
         _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
 
         _hasAnimator = TryGetComponent(out _animator);
@@ -162,6 +164,19 @@ public class ThirdPersonController : MonoBehaviour
 
     private void LateUpdate()
     {
+    }
+
+    public void SwapWeapon()
+    {
+        if (_weaponState == 0)
+        {
+            _weaponState = 1; 
+        }
+        else if (_weaponState == 1)
+        {
+            _weaponState = 0;
+        }
+        _animator.SetFloat("State", _weaponState);
     }
 
     public float AngleCalculation(Vector2 vector1, Vector2 vector2)
