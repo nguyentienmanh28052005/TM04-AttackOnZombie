@@ -18,6 +18,7 @@ public class InventorySlot : MonoBehaviour, IDropHandler
         BaseSlot,
         MainGun,
         MiniGun,
+        Crate,
     }
 
     private void Awake()

@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class CanvasInventory : CanvasBase
 {
-    // Start is called before the first frame update
-    void Start()
+
+    [SerializeField] private GameObject _playerShow;
+    [SerializeField] private GameObject _crateShow;
+
+    public override void Hide()
     {
-        
+        base.Hide(); 
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void Show(object data = null)
     {
-        
+        base.Show(data);
+        _crateShow.SetActive(false);
+        _playerShow.SetActive(true);
     }
 }

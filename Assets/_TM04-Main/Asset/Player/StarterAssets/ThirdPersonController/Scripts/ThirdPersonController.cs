@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using Random = UnityEngine.Random;
 #if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
@@ -529,6 +531,23 @@ public class ThirdPersonController : MonoBehaviour
             float health = PlayerManager.Instance.GetHealth();
             health -= 20;
             PlayerManager.Instance.SetHealth(health);
+        }
+
+        if (other.gameObject.CompareTag("Crate"))
+        {
+            // Debug.Log(other.gameObject.name);
+            InventoryManager.Instance.currentCrate = other.gameObject.GetComponentInParent<Crate>();
+            InventoryManager.Instance.currentItemCrate = other.gameObject.GetComponentInParent<Crate>().items;
+            Item[] items = other.gameObject.GetComponentInParent<Crate>().items;
+            InventoryManager.Instance.AddItemCrate(items);
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Crate"))
+        {
+            InventoryManager.Instance.DestroyAllItemInCrate();
         }
     }
 }

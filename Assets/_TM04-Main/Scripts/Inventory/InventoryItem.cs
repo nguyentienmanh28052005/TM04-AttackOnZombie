@@ -127,7 +127,11 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler,  IE
         image.raycastTarget = false;
         parentAfterDrag = transform.parent;
         InventoryManager.Instance._currentSlot = GetComponentInParent<InventorySlot>();
-        Debug.Log(GetComponentInParent<InventorySlot>().gameObject.name);
+        if (InventoryManager.Instance._currentSlot.typeSlot == InventorySlot.TypeSlot.Crate)
+        {
+            InventoryManager.Instance.currentItemCrate[InventoryManager.Instance._currentSlot.index - 25] = null;
+        }
+        Debug.Log(InventoryManager.Instance._currentSlot.index);
         transform.SetParent(transform.root);
     }
 
@@ -153,6 +157,12 @@ public class InventoryItem : MonoBehaviour, IBeginDragHandler, IDragHandler,  IE
             items[0].transform.SetParent(InventoryManager.Instance._currentSlot.transform);
             items[0].MessagePlayer();
             items[0].SetImageItem();
+            if(InventoryManager.Instance._currentSlot.typeSlot == InventorySlot.TypeSlot.Crate)
+                InventoryManager.Instance.currentItemCrate[InventoryManager.Instance._currentSlot.index - 25] = items[0].item;
+        }
+        if (slot.typeSlot == InventorySlot.TypeSlot.Crate)
+        {
+            InventoryManager.Instance.currentItemCrate[slot.index - 25] = item;
         }
     }
 }

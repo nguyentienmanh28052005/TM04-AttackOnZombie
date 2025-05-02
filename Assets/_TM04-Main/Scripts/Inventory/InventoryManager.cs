@@ -7,17 +7,29 @@ public class InventoryManager : Singleton<InventoryManager>
 {
     public int maxStackedItem = 4;
     public InventorySlot[] inventorySlots;
+    public InventorySlot[] crateSlots;
     public GameObject inventoryItemPrefab;
 
+    public TypeShow currentTypeShow;
+
     public InventorySlot _currentSlot;
+    public Crate currentCrate;
+    public InventorySlot lastCrateSlot;
+    public Item[] currentItemCrate;
     
     private int selectedSlot = -1;
+    
+    public enum TypeShow
+    {
+        Inventory,
+        Crate,
+    }
 
     protected override void Awake()
     {
         base.Awake();
     }
-
+    
     private void Start()
     {
         ChangeSelected(0);
@@ -28,10 +40,12 @@ public class InventoryManager : Singleton<InventoryManager>
     {
         if (selectedSlot >= 0)
         {
-            inventorySlots[selectedSlot].Deselect();
+            if (selectedSlot < 25) inventorySlots[selectedSlot].Deselect();
+            else crateSlots[selectedSlot - 25].Deselect();
         }
         
-        inventorySlots[newValue].Select();
+        if(newValue < 25) inventorySlots[newValue].Select();
+        else crateSlots[newValue-25].Select();
         selectedSlot = newValue;
     }
 
@@ -40,10 +54,39 @@ public class InventoryManager : Singleton<InventoryManager>
         for (int i = 0; i < inventorySlots.Length; i++)
         {
             InventorySlot slot = inventorySlots[i];
+            InventorySlot slotCrate = crateSlots[i];
             slot.index = i;
+            slotCrate.index = i + 25;
         }
     }
-    
+
+    public void SetItemInSlotCrate(int index, Item item)
+    {
+        
+    }
+
+    public void AddItemCrate(Item[] items)
+    {
+        for (int i = 0; i < items.Length; i++)
+        {
+            if (items[i] != null)
+            {
+                if (crateSlots[i].transform.childCount == 0)
+                {
+                    SpawnNewItem(items[i], crateSlots[i]);
+                }
+            } 
+        }
+    }
+
+    public void DestroyAllItemInCrate()
+    {
+        foreach (var slot in crateSlots)
+        {
+            InventoryItem item = slot.GetComponentInChildren<InventoryItem>();
+            if(item != null) Destroy(item.gameObject);
+        }
+    }
     
     public bool AddItem(Item item)
     {
@@ -73,7 +116,6 @@ public class InventoryManager : Singleton<InventoryManager>
                 return true;
             }
         }
-
         return false;
     }
 
