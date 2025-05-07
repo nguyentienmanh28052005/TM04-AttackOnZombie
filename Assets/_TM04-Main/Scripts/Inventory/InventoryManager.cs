@@ -10,7 +10,7 @@ public class InventoryManager : Singleton<InventoryManager>
     public InventorySlot[] crateSlots;
     public GameObject inventoryItemPrefab;
 
-    public TypeShow currentTypeShow;
+    public TypeShow currentTypeShow = TypeShow.Inventory;
 
     public InventorySlot _currentSlot;
     public Crate currentCrate;

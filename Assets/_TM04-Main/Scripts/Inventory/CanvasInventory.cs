@@ -16,7 +16,15 @@ public class CanvasInventory : CanvasBase
     public override void Show(object data = null)
     {
         base.Show(data);
-        _crateShow.SetActive(false);
-        _playerShow.SetActive(true);
+        if (InventoryManager.Instance.currentTypeShow == InventoryManager.TypeShow.Inventory)
+        {
+            _playerShow.SetActive(true);
+            _crateShow.SetActive(false);
+        }
+        else if (InventoryManager.Instance.currentTypeShow == InventoryManager.TypeShow.Crate)
+        {
+            _playerShow.SetActive(false);
+            _crateShow.SetActive(true);
+        }
     }
 }

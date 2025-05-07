@@ -21,7 +21,10 @@ public class Gun : MonoBehaviour
     [SerializeField]
     private float ShootDelay = 0.5f;
     [SerializeField]
-    private LayerMask Mask;
+    private LayerMask MaskEnemy;
+    //[SerializeField]
+    //private LayerMask MaskEnvironment;
+
     [SerializeField]
     private float BulletSpeed = 100;
 
@@ -31,6 +34,13 @@ public class Gun : MonoBehaviour
 
     private Animator Animator;
     private float LastShootTime;
+
+    public enum ImpactType
+    {
+        EnemyImpact,
+        EnvironmentImpact,
+        NoneImpact,
+    }
 
     private void Awake()
     {
@@ -61,7 +71,7 @@ public class Gun : MonoBehaviour
             Animator.SetBool("IsShooting", true);
             Vector3 direction = GetDirection();
 
-            if (Physics.Raycast(BulletSpawnPoint.position, direction, out RaycastHit hit, float.MaxValue, Mask))
+            if (Physics.Raycast(BulletSpawnPoint.position, direction, out RaycastHit hit, float.MaxValue, MaskEnemy))
             {
                 TrailRenderer trail = Instantiate(BulletTrail, BulletSpawnPoint.position, Quaternion.identity);
 
@@ -119,7 +129,14 @@ public class Gun : MonoBehaviour
         Trail.transform.position = HitPoint;
         if (MadeImpact)
         {
-            Instantiate(ImpactParticleSystem, HitPoint, Quaternion.LookRotation(HitNormal));
+            // if (type == ImpactType.EnemyImpact)
+            // {
+                Instantiate(ImpactParticleSystem, HitPoint, Quaternion.LookRotation(HitNormal));
+            //}
+            // else if (type == )
+            // {
+            //     
+            // }
             Zombie1 enemy = hit.collider.GetComponent<Zombie1>();
             if (enemy != null)
             {

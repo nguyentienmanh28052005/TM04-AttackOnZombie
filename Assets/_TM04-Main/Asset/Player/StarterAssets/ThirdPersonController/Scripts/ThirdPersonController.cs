@@ -159,13 +159,13 @@ public class ThirdPersonController : MonoBehaviour
     {
         _hasAnimator = TryGetComponent(out _animator);
         GroundedCheck();
-        Move();
-        AnimationMove();
         GravityA();
     }
 
-    private void LateUpdate()
+    private void FixedUpdate()
     {
+        Move();
+        AnimationMove();
     }
 
     public void SwapWeapon()
@@ -328,7 +328,7 @@ public class ThirdPersonController : MonoBehaviour
 
     private void Move()
     {
-        float targetSpeed = _input.lookTopDown == Vector2.zero ? SprintSpeed : MoveSpeed;
+        float targetSpeed = (_input.lookTopDown == Vector2.zero || _weaponState == 0) ? SprintSpeed : MoveSpeed;
 
         if (_input.move == Vector2.zero) targetSpeed = 0.0f;
 
@@ -350,7 +350,7 @@ public class ThirdPersonController : MonoBehaviour
             _speed = targetSpeed;
         }
 
-        if (targetSpeed >= SprintSpeed) _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed + 5, Time.deltaTime * SpeedChangeRate);
+        if (targetSpeed >= SprintSpeed) _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed + 6, Time.deltaTime * SpeedChangeRate);
         else _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * SpeedChangeRate);
         if (_animationBlend < 0.01f) _animationBlend = 0f;
 
@@ -364,7 +364,7 @@ public class ThirdPersonController : MonoBehaviour
             _targetRotation2 = Mathf.Atan2(inputDirection2.x, inputDirection2.z) * Mathf.Rad2Deg +
                               _mainCamera.transform.eulerAngles.y;
 
-            if (_input.lookTopDown != Vector2.zero)
+            if (_input.lookTopDown != Vector2.zero && _weaponState != 0)
             {
                 float rotation2 = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation2, ref _rotationVelocity,
                     RotationSmoothTime);
@@ -377,10 +377,13 @@ public class ThirdPersonController : MonoBehaviour
             }
         }
 
-        Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
+        if (_speed != 0)
+        {
+            Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
 
-        _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
-                         new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+            _controller.Move(targetDirection.normalized * (_speed * Time.deltaTime) +
+                             new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+        }
 
         if (_hasAnimator)
         {
@@ -536,6 +539,7 @@ public class ThirdPersonController : MonoBehaviour
         if (other.gameObject.CompareTag("Crate"))
         {
             // Debug.Log(other.gameObject.name);
+            InventoryManager.Instance.currentTypeShow = InventoryManager.TypeShow.Crate;
             InventoryManager.Instance.currentCrate = other.gameObject.GetComponentInParent<Crate>();
             InventoryManager.Instance.currentItemCrate = other.gameObject.GetComponentInParent<Crate>().items;
             Item[] items = other.gameObject.GetComponentInParent<Crate>().items;
@@ -547,6 +551,7 @@ public class ThirdPersonController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Crate"))
         {
+            InventoryManager.Instance.currentTypeShow = InventoryManager.TypeShow.Inventory;
             InventoryManager.Instance.DestroyAllItemInCrate();
         }
     }

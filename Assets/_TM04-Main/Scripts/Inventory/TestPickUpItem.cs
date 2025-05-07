@@ -10,8 +10,7 @@ public class TestPickUpItem : MonoBehaviour
 
     private void Start()
     {
-        PickupItem(0);
-        PickupItem(1);
+     
     }
 
     public void PickupItem(int id)
